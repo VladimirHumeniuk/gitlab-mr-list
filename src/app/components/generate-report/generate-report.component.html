@@ -1,0 +1,16 @@
+<div class="generated-text">
+  <textarea
+  #ngxText
+  class="textarea"
+  rows="5"
+  nz-input
+  placeholder="Slack Report"
+  [(ngModel)]="generatedText">
+  </textarea>
+
+  <div class="generated-text__button">
+    <button *ngIf="generatedText" [ngxClipboard]="ngxText" nz-button nzType="default">Copy to clipboard</button>
+
+    <button (click)="generateText()" nz-button nzType="primary">Generate report</button>
+  </div>
+</div>

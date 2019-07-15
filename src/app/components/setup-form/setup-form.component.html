@@ -1,0 +1,34 @@
+<form
+class="setup-form"
+[formGroup]="setupForm"
+(ngSubmit)="saveSetup()"
+nz-form>
+  <nz-form-item class="setup-form__item">
+    <nz-form-label nzFor="host">Host</nz-form-label>
+    <nz-form-control>
+      <input formControlName="host" nz-input name="host" type="text" id="host">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="setup-form__item">
+    <nz-form-label nzFor="token">Token</nz-form-label>
+    <nz-form-control>
+      <input formControlName="token" nz-input name="token" type="text" id="token">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="setup-form__item">
+    <nz-form-label nzFor="project">Project ID</nz-form-label>
+    <nz-form-control>
+      <input formControlName="project" nz-input name="project" type="text" id="token">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="setup-form__item setup-form__item--submit">
+    <nz-form-control>
+      <button type="submit" nz-button nzType="primary" [disabled]="!setupForm.valid">
+        Save & Use
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
