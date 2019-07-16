@@ -49,7 +49,7 @@ export class SetupFormComponent implements OnInit {
 
     if(this.setupForm.valid) {
       this.cookieService.set('gitlab', this.crypt.encrypt(this.setupForm.value), COOKIES_EXPIRED);
-      this.router.navigate['dashboard']
+      this.router.navigate(['dashboard'])
     }
 
     return
