@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GitlabApiService } from '../../services/gitlab-api/gitlab-api.service';
+import * as emoji from 'node-emoji';
 
 @Component({
   selector: 'app-table',
@@ -15,6 +16,18 @@ export class TableComponent implements OnInit {
   constructor(
     private gitlab: GitlabApiService
   ) { }
+
+  private emojiMissed(name: string): string {
+    if (name === 'wip') {
+      return emoji.emojify(`:construction:`)
+    }
+
+    return `:${name}:`
+  }
+
+  public emoji(str: string): string {
+    return emoji.emojify(str, this.emojiMissed)
+  }
 
   ngOnInit() {
     this.gitlab.requests.subscribe(requests => this.requests = requests)

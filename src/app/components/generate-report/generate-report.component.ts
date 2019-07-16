@@ -39,8 +39,7 @@ Merge Requests ready for merge:\n${
   readyForMerge.map(mr => {
     return `- ${this.mr_url}${mr.iid}\n`
   }).join('')
-}
-` : ''}
+}` : ''}
 Merge Requests without approvals:\n${
   needApprovals.map(mr => {
     return `- ${this.mr_url}${mr.iid} | ${2 - mr.approvals.approvals_left}/2\n`

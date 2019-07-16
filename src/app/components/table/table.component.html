@@ -27,7 +27,7 @@ class="table"
         <td>{{ mr.iid }}</td>
         <td>{{ mr.updated_at | date: 'dd/MMM, hh:mm a' }}</td>
         <td>
-          <a [href]="mr_url + mr.iid" target="_blank">{{ mr.title }}</a>
+          <a [href]="mr_url + mr.iid" target="_blank">{{ emoji(mr.title) }}</a>
         </td>
         <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.source_branch }}</nz-tag></td>
         <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.target_branch }}</nz-tag></td>
