@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GitlabApiService } from '../../services/gitlab-api/gitlab-api.service';
 import { LABELS_COLORS } from '../../constants/constants'
 import * as emoji from 'node-emoji';
+import * as md from 'markdown';
 
 @Component({
   selector: 'app-table',
@@ -27,6 +28,10 @@ export class TableComponent implements OnInit {
     }
 
     return `:${name}:`
+  }
+
+  public markdown(text: string): string {
+    return md.markdown.toHTML(text)
   }
 
   public emoji(str: string): string {

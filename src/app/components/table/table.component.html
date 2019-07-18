@@ -59,7 +59,7 @@
         </tr>
         <tr [nzExpand]="mapOfExpandData[mr.id]">
           <td></td>
-          <td colspan="9">{{mr.description}}</td>
+          <td colspan="9" [innerHTML]="markdown(mr.description)"></td>
         </tr>
       </ng-template>
     </tbody>
