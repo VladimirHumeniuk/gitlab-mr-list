@@ -13,9 +13,36 @@ import * as md from 'markdown';
 export class TableComponent implements OnInit {
 
   public mr_url: string
-  public requests: Array<any>
+  public requests: Array<any> = []
   public mapOfExpandData: { [key: string]: boolean } = {}
   public labelColors = LABELS_COLORS
+
+  private sortName: string | null = null
+  private sortValue: string | null = null
+
+  public sort(sort: { key: string; value: string }): void {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+    this.search();
+  }
+
+  private search(): void {
+    const data = this.requests.filter(item => item);
+
+    if (this.sortName && this.sortValue) {
+      this.requests = data.sort((a, b) =>
+        this.sortValue === 'descend'
+          ? a[this.sortName!] > b[this.sortName!]
+            ? 1
+            : -1
+          : b[this.sortName!] > a[this.sortName!]
+          ? 1
+          : -1
+      );
+    } else {
+      this.requests = data;
+    }
+  }
 
   constructor(
     private gitlab: GitlabApiService,

@@ -12,16 +12,16 @@
   [nzPageSize]="15"
   nzSize="middle"
   [nzData]="requests">
-    <thead>
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
         <th></th>
-        <th>ID</th>
-        <th>Last Update</th>
-        <th [nzAlign]="'center'">Author</th>
+        <th nzShowSort nzSortKey="iid">ID</th>
+        <th nzShowSort nzSortKey="updated_at">Last Update</th>
+        <th [nzAlign]="'center'" nzShowSort nzSortKey="author.name">Author</th>
         <th>Title</th>
-        <th>Source</th>
-        <th>Target</th>
-        <th>Label</th>
+        <th nzShowSort nzSortKey="source_branch">Source</th>
+        <th nzShowSort nzSortKey="target_branch">Target</th>
+        <th nzShowSort nzSortKey="labels">Label</th>
         <th [nzAlign]="'center'">Ready</th>
         <th [nzAlign]="'center'">Approvals</th>
       </tr>
