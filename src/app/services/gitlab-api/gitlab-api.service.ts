@@ -34,6 +34,10 @@ export class GitlabApiService {
     return this.api.Projects.show(this.g.project)
   }
 
+  public logOut(): void {
+    this.cookieService.deleteAll()
+  }
+
   constructor(
     protected cookieService: CookieService,
     protected crypt: CryptService

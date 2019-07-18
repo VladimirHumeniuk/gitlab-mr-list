@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GitlabApiService } from '../../services/gitlab-api/gitlab-api.service';
+import { LABELS_COLORS } from '../../constants/constants'
 import * as emoji from 'node-emoji';
 
 @Component({
@@ -12,9 +14,11 @@ export class TableComponent implements OnInit {
   public mr_url: string
   public requests: Array<any>
   public mapOfExpandData: { [key: string]: boolean } = {}
+  public labelColors = LABELS_COLORS
 
   constructor(
-    private gitlab: GitlabApiService
+    private gitlab: GitlabApiService,
+    private router: Router
   ) { }
 
   private emojiMissed(name: string): string {
@@ -27,6 +31,11 @@ export class TableComponent implements OnInit {
 
   public emoji(str: string): string {
     return emoji.emojify(str, this.emojiMissed)
+  }
+
+  public logout(): void {
+    this.gitlab.logOut()
+    this.router.navigate([''])
   }
 
   ngOnInit() {

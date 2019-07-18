@@ -17,8 +17,11 @@ import { TableComponent } from './components/table/table.component';
 import { GenerateReportComponent } from './components/generate-report/generate-report.component';
 import { SetupFormComponent } from './components/setup-form/setup-form.component';
 
+import { DateAgoPipe } from './pipes/date-ago.pipe'
+
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { from } from 'rxjs';
 
 registerLocaleData(en);
 
@@ -30,6 +33,7 @@ registerLocaleData(en);
     DashboardComponent,
     SettingsComponent,
     SetupFormComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,

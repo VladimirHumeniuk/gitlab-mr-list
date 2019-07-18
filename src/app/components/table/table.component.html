@@ -1,57 +1,67 @@
-<h1>Opened Merge Requests<span *ngIf="requests">: {{requests.length}}</span></h1>
+<header class="table-header">
+  <h1>Opened Merge Requests<span *ngIf="requests">: {{requests.length}}</span></h1>
 
-<nz-table
-#mrTable
-class="table"
-[nzLoading]="!requests"
-[nzData]="requests">
-  <thead>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>date</th>
-      <th>Title</th>
-      <th>Source</th>
-      <th>Target</th>
-      <th>Author</th>
-      <th>Label</th>
-      <th [nzAlign]="'center'">Ready</th>
-      <th [nzAlign]="'center'">Approvals</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-template ngFor let-mr [ngForOf]="mrTable.data">
+  <a (click)="logout()">Logout</a>
+</header>
+
+<div class="table-wrapper">
+  <nz-table
+  #mrTable
+  class="table"
+  [nzLoading]="!requests"
+  [nzPageSize]="15"
+  nzSize="middle"
+  [nzData]="requests">
+    <thead>
       <tr>
-        <td *ngIf="mr.description" nzShowExpand [(nzExpand)]="mapOfExpandData[mr.id]"></td>
-        <td *ngIf="!mr.description"></td>
-        <td>{{ mr.iid }}</td>
-        <td>{{ mr.updated_at | date: 'dd/MMM, hh:mm a' }}</td>
-        <td>
-          <a [href]="mr_url + mr.iid" target="_blank">{{ emoji(mr.title) }}</a>
-        </td>
-        <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.source_branch }}</nz-tag></td>
-        <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.target_branch }}</nz-tag></td>
-        <td>{{ mr.author.name }}</td>
-        <td>
-          <ng-template ngFor let-label [ngForOf]="mr.labels">
-            <nz-tag>{{label}}</nz-tag>
-          </ng-template>
-        </td>
-        <td [nzAlign]="'center'">
-          <span *ngIf="mr.approvals">
-            <i *ngIf="mr.approvals.merge_status === 'can_be_merged' && mr.approvals.approvals_left === 0" nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'"></i>
+        <th></th>
+        <th>ID</th>
+        <th>Last Update</th>
+        <th [nzAlign]="'center'">Author</th>
+        <th>Title</th>
+        <th>Source</th>
+        <th>Target</th>
+        <th>Label</th>
+        <th [nzAlign]="'center'">Ready</th>
+        <th [nzAlign]="'center'">Approvals</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-mr [ngForOf]="mrTable.data">
+        <tr>
+          <td *ngIf="mr.description" nzShowExpand [(nzExpand)]="mapOfExpandData[mr.id]"></td>
+          <td *ngIf="!mr.description"></td>
+          <td>{{ mr.iid }}</td>
+          <td>{{ mr.updated_at | dateAgo }}</td>
+          <td [nzAlign]="'center'">
+            <nz-avatar nzIcon="user" nzSrc="{{mr.author.avatar_url}}" nz-tooltip nzTitle="{{mr.author.name}}" [nzSize]="24"></nz-avatar>
+          </td>
+          <td>
+            <a [href]="mr_url + mr.iid" target="_blank">{{ emoji(mr.title) }}</a>
+          </td>
+          <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.source_branch }}</nz-tag></td>
+          <td><nz-tag><i nz-icon nzType="branches" nzTheme="outline"></i> {{ mr.target_branch }}</nz-tag></td>
+          <td>
+            <ng-template ngFor let-label [ngForOf]="mr.labels">
+              <nz-tag [nzColor]="labelColors[label] ? labelColors[label] : ''">{{label}}</nz-tag>
+            </ng-template>
+          </td>
+          <td [nzAlign]="'center'">
+            <span *ngIf="mr.approvals">
+              <i *ngIf="mr.approvals.merge_status === 'can_be_merged' && mr.approvals.approvals_left === 0" nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'"></i>
 
-            <i *ngIf="mr.approvals.merge_status !== 'can_be_merged' || mr.approvals.approvals_left > 0" nz-icon [nzType]="'close-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
-          </span>
-        </td>
-        <td [nzAlign]="'center'">
-          <span *ngIf="mr.approvals">{{ 2 - mr.approvals.approvals_left }}/2</span>
-        </td>
-      </tr>
-      <tr [nzExpand]="mapOfExpandData[mr.id]">
-        <td></td>
-        <td colspan="9">{{mr.description}}</td>
-      </tr>
-    </ng-template>
-  </tbody>
-</nz-table>
+              <i *ngIf="mr.approvals.merge_status !== 'can_be_merged' || mr.approvals.approvals_left > 0" nz-icon [nzType]="'close-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
+            </span>
+          </td>
+          <td [nzAlign]="'center'">
+            <span *ngIf="mr.approvals">{{ 2 - mr.approvals.approvals_left }}/2</span>
+          </td>
+        </tr>
+        <tr [nzExpand]="mapOfExpandData[mr.id]">
+          <td></td>
+          <td colspan="9">{{mr.description}}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+</div>
